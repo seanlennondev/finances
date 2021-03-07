@@ -115,7 +115,8 @@
         @click="$router.push('/add/wallet')"
       >
       </q-fab>
-          <q-fab
+
+      <q-fab
         v-if="$route.path == '/credit-cards'"
         icon="credit_score"
         vertical-actions-align="right"

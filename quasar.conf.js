@@ -86,7 +86,7 @@ module.exports = function (/* ctx */) {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
       config: {
-        dark: true
+        // dark: true
       },
 
       // Possible values for "importStrategy":
@@ -103,7 +103,9 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
-        'AppFullscreen'
+        'AppFullscreen',
+        'LocalStorage',
+        'Notify'
       ]
     },
 

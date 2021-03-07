@@ -22,11 +22,11 @@
               <img src="../assets/img-profile.jpg" />
             </q-avatar>
           </q-item-section>
-          <q-item-section side class="text-white text-weight-bolder">
-            <q-item-label class="text-h6">
+          <q-item-section side class="text-white">
+            <q-item-label class="text-h6 text-weight-bolder">
               Sean Lennon
             </q-item-label>
-            <q-item-label caption>
+            <q-item-label>
               Conta vinculada ao google
             </q-item-label>
           </q-item-section>

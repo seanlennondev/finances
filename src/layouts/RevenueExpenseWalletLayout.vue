@@ -5,7 +5,7 @@
     leave-active-class="animated slideInDown"
   >
   <q-layout view="hHh Lpr fFf">
-    <q-header elevated>
+    <q-header>
       <q-toolbar class="bg-dark">
         <q-btn
           flat
@@ -17,7 +17,7 @@
         <q-toolbar-title>
           {{title}}
         </q-toolbar-title>
-        <q-btn label="Salvar" flat />
+        <q-btn label="Salvar" flat @click="save" />
       </q-toolbar>
     </q-header>
 
@@ -25,14 +25,22 @@
       <router-view />
     </q-page-container>
 
+    <q-footer v-if="$route.path == '/add/wallet'">
+      <q-toolbar class="q-py-md text-weight-bold bg-dark">
+      An account is anywhere you keep money, whether in your wallet, bank or piggy bank.
+      </q-toolbar>
+    </q-footer>
+
   </q-layout>
   </transition>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
+    ...mapGetters('Wallets', ['getWallet']),
     title: function () {
       if (this.$route.path === '/add/revenue') {
         return 'Revenue'
@@ -45,6 +53,14 @@ export default {
       } else {
         return 'Credit Card'
       }
+    }
+  },
+  methods: {
+    ...mapActions('Wallets', ['addWallet']),
+
+    save: function () {
+      this.$q.notify('Wallet created successfully')
+      this.$router.back()
     }
   }
 }
