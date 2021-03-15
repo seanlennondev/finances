@@ -29,28 +29,28 @@
                   R$
             </div>
           </template>
-      </q-input>
+        </q-input>
 
-            <q-separator />
+        <q-separator />
 
         <q-list separator padding>
-              <q-item>
-          <q-item-section avatar>
-            <q-icon name="description" />
-          </q-item-section>
-          <q-item-section>
+          <q-item>
+            <q-item-section avatar>
+              <q-icon name="description" />
+            </q-item-section>
+            <q-item-section>
             <q-input input-class="text-h6" placeholder="Description" borderless color="blue-4" v-model="expense.description" />
-          </q-item-section>
-        </q-item>
+            </q-item-section>
+          </q-item>
 
-              <q-item>
-          <q-item-section avatar>
-            <q-icon name="account_balance" />
-          </q-item-section>
-          <q-item-section>
+          <q-item>
+            <q-item-section avatar>
+              <q-icon name="account_balance" />
+            </q-item-section>
+            <q-item-section>
             <q-select borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" />
-          </q-item-section>
-        </q-item>
+            </q-item-section>
+          </q-item>
 
         <q-item>
           <q-item-section avatar>
@@ -93,7 +93,8 @@ export default {
         wallet_id: null
       }),
       wallet: null,
-      wallets: null
+      wallets: null,
+      test: null
     }
   },
 
@@ -109,19 +110,26 @@ export default {
 
   methods: {
     save: function () {
-      this.reloadBalance()
-      this.expense.wallet_id = this.wallet.id
+      Wallet.update({
+        where: this.wallet.id,
+        data: {
+          balance: this.wallet.balance += parseInt(this.expense.amount)
+        }
+      })
+
       Expense.insert({
-        data: this.expense
+        data: {
+          description: this.expense.description,
+          amount: this.expense.amount,
+          wallet_id: this.wallet.id,
+          date: this.expense.date
+        }
       })
       this.$router.back()
     },
 
     reloadBalance: function () {
-      const wallet = Wallet.query().where('id', this.wallet.id).withAll().first()
-      wallet.balance += this.expense.amount
-      wallet.$save()
-      // wallet.balance += this.expense.amount
+      // this.wallet.balance += parseInt(this.expense.amount)
     }
   },
 

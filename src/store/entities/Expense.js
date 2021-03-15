@@ -11,7 +11,7 @@ export default class Expense extends Model {
       wallet_id: this.uid(),
       description: this.string(''),
       date: this.attr(() => date.formatDate(Date.now(), 'YYYY/MM/DD')),
-      amount: this.number(0.00)
+      amount: this.number(null)
     }
   }
 

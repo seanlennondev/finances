@@ -108,9 +108,20 @@ export default {
 
   methods: {
     save: function () {
-      this.revenue.wallet_id = this.wallet.id
+      Wallet.update({
+        where: this.wallet.id,
+        data: {
+          balance: this.wallet.balance += parseInt(this.revenue.amount)
+        }
+      })
+
       Revenue.insert({
-        data: this.revenue
+        data: {
+          description: this.revenue.description,
+          amount: this.revenue.amount,
+          wallet_id: this.wallet.id,
+          date: this.revenue.date
+        }
       })
       this.$router.back()
     }

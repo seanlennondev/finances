@@ -9,11 +9,11 @@ export default class Wallet extends Model {
   static fields () {
     return {
       id: this.uid(() => uid()),
-      balance: this.number(0.00),
-      name: this.string(''),
-      value: this.string(''),
-      label: this.string(''),
-      category: this.string(''),
+      balance: this.number(1000.57),
+      name: this.string('My Wallet'),
+      value: this.string('My Wallet'),
+      label: this.string('My Wallet'),
+      category: this.string('CC'),
       revenues: this.hasMany(Revenue, 'wallet_id'),
       expenses: this.hasMany(Expense, 'wallet_id')
     }
