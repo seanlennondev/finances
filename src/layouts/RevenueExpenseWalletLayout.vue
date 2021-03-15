@@ -4,7 +4,7 @@
     enter-active-class="animated slideInUp"
     leave-active-class="animated slideInDown"
   >
-  <q-layout view="hHh Lpr fFf">
+  <q-layout>
     <q-header>
       <q-toolbar class="bg-dark">
         <q-btn
@@ -17,7 +17,7 @@
         <q-toolbar-title>
           {{title}}
         </q-toolbar-title>
-        <q-btn label="Salvar" flat @click="save" />
+        <q-btn label="Salvar" flat @click="save()" />
       </q-toolbar>
     </q-header>
 
@@ -36,11 +36,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+// import Wallet from '../store/entities/wallet'
 
 export default {
   computed: {
-    ...mapGetters('Wallets', ['getWallet']),
     title: function () {
       if (this.$route.path === '/add/revenue') {
         return 'Revenue'
@@ -56,10 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('Wallets', ['addWallet']),
-
     save: function () {
-      this.$q.notify('Wallet created successfully')
       this.$router.back()
     }
   }

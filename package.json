@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.9.19",
+    "@vuex-orm/core": "^0.36.3",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",

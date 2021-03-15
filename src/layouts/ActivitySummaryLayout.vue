@@ -1,8 +1,8 @@
 <template>
   <transition
     appear
-    enter-active-class="animated slideInUp"
-    leave-active-class="animated slideInDown"
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideInLeft"
   >
   <q-layout view="hHh Lpr fFf">
     <q-header>

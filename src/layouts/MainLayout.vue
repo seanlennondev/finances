@@ -99,11 +99,11 @@
         icon="add"
         vertical-actions-align="right"
         direction="up"
-        color="deep-purple"
+        color="blue-4"
       >
-        <q-fab-action @click="$router.push('/add/wallet')" color="orange" label="Wallet" />
-        <q-fab-action @click="$router.push('/add/expense')" color="red" label="Expense" />
-        <q-fab-action @click="$router.push('/add/revenue')" color="green" label="Revenue" />
+        <q-fab-action @click="$router.push('/new/wallet')" color="orange" label="Carteira" />
+        <q-fab-action @click="$router.push('/new/expense')" color="red" label="Despesa" />
+        <q-fab-action @click="$router.push('/new/revenue')" color="green" label="Receita" />
       </q-fab>
 
       <q-fab
@@ -111,8 +111,8 @@
         icon="add"
         vertical-actions-align="right"
         direction="up"
-        color="deep-purple"
-        @click="$router.push('/add/wallet')"
+        color="blue-4"
+        @click="$router.push('/new/wallet')"
       >
       </q-fab>
 
@@ -127,27 +127,16 @@
       </q-fab>
    </q-page-sticky>
 
-    <q-footer class="bg-dark" v-if="$route.path == '/wallets'">
-      <q-toolbar class="text-white text-weight-bolder q-py-sm">
-        <q-toolbar-title class="text-weight-bold text-h6">
-          Total balance
-        </q-toolbar-title>
-        <div class="text-h6">
-          R$ 0
-        </div>
-      </q-toolbar>
-    </q-footer>
-
     <q-footer class="bg-dark" v-if="$route.path == '/transactions'">
       <q-toolbar class="text-white text-weight-bolder q-py-sm">
         <div>
-          <q-icon name="trending_up" color="green" /> R$ 0
+          <q-icon name="trending_up" color="green" /> R$ {{revenue}}
         </div>
         <q-toolbar-title class="text-center">
           <q-icon name="payment" color="yellow" /> R$ 0
         </q-toolbar-title>
         <div>
-          <q-icon name="trending_down" color="red" /> R$ 0
+          <q-icon name="trending_down" color="red" /> R$ {{expense}}
         </div>
       </q-toolbar>
     </q-footer>
@@ -156,6 +145,9 @@
 </template>
 
 <script>
+import Revenue from '../store/entities/Revenue'
+import Expense from '../store/entities/Expense'
+
 const reports = [
   {
     title: 'Transactions',
@@ -244,6 +236,14 @@ export default {
       } else {
         return 'Settings'
       }
+    },
+
+    revenue () {
+      return Revenue.query().sum('amount')
+    },
+
+    expense () {
+      return Expense.query().sum('amount')
     }
   }
 }

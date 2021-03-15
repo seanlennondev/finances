@@ -1,6 +1,6 @@
 <template>
   <transition
-    appear
+    appear mode="out-in"
     enter-active-class="animated slideInUp"
     leave-active-class="animated slideInDown"
   >

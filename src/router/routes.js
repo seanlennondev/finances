@@ -30,6 +30,16 @@ const routes = [
       }
     ]
   },
+
+  {
+    path: '/new/revenue',
+    component: () => import('pages/Revenue.vue')
+  },
+  {
+    path: '/new/expense',
+    component: () => import('pages/Expense.vue')
+  },
+
   {
     path: '/add',
     component: () => import('layouts/RevenueExpenseWalletLayout.vue'),
@@ -52,6 +62,26 @@ const routes = [
       }
     ]
   },
+
+  {
+    path: '/today-expenses',
+    component: () => import('pages/TodaysExpenses.vue')
+  },
+  {
+    path: '/today-revenues',
+    component: () => import('pages/TodaysRevenues.vue')
+  },
+
+  {
+    path: '/new/wallet',
+    component: () => import('pages/WalletNew.vue')
+  },
+  {
+    path: '/edit/wallet/:id',
+    component: () => import('pages/WalletEdit.vue'),
+    props: true
+  },
+
   {
     path: '/settings',
     component: () => import('layouts/SettingsLayout.vue'),
@@ -63,6 +93,7 @@ const routes = [
       }
     ]
   },
+
   {
     path: '/settings',
     component: () => import('layouts/ActivitySummaryLayout.vue'),

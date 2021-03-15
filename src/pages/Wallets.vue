@@ -1,47 +1,60 @@
 <template>
   <q-page>
-    <q-list padding>
-      <q-item v-for="wallet in wallets" :key="wallet.name">
-          <q-item-section avatar>
-            <q-icon round flat color="red" name="leaderboard" />
+    <q-list paddin separator>
+      <q-item class="q-py-md" v-for="(wallet, index) in wallets" :key="index" :to="`/edit/wallet/${wallet.id}`">
+        <q-item-section side>
+          <q-icon round flat name="account_balance" color="blue-4" />
+        </q-item-section>
+        <q-item-section class="text-weight-bolder text-h6 text">
+          {{wallet.name}}
           </q-item-section>
-          <q-item-section>
-            {{wallet.name}}
-          </q-item-section>
+        <q-item-section side class="text-weight-bolder text-h6" :class="wallet.balance < 0 ? 'text-red-5' : 'text-green-5'">
+          R$ {{wallet.balance.toFixed(2)}}
+        </q-item-section>
       </q-item>
-      {{total}}
+      <q-separator v-if="wallets.length !== 0" />
     </q-list>
+
+    <q-footer class="bg-dark">
+      <q-toolbar class="text-white text-weight-bolder q-py-sm">
+        <q-toolbar-title class="text-weight-bold text-h6">
+          Saldo total
+        </q-toolbar-title>
+        <div class="text-h6 text-weight-bolder" :class="total < 0 ? 'text-red-4' : 'text-green-4'">
+          R$ {{total}}
+        </div>
+      </q-toolbar>
+    </q-footer>
   </q-page>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import Wallet from '../store/entities/Wallet'
+import Revenue from '../store/entities/Revenue'
+import Expense from '../store/entities/Expense'
 
 export default {
-  data: () => {
-    return {
-      wallet: {
-        name: '',
-        category: 'Money',
-        check: false
-      }
-    }
-  },
   computed: {
-    ...mapGetters('Wallets', ['getWallets', 'getCategories', 'getTotal']),
-    wallets () {
-      return this.getWallets
+    wallet: function () {
+      return Wallet.query().with(['revenues', 'expenses']).get()
     },
-    categories () {
-      return this.getCategories
+    revenue: function () {
+      return Revenue.query().with('wallet').get()
     },
-    total () {
-      return this.getTotal
+    expense: function () {
+      return Expense.query().with('wallet').get()
+    },
+    wallets: function () {
+      return Wallet.query().withAll().all()
+    },
+    total: function () {
+      return Wallet.query().sum('balance')
     }
   },
-  methods: {
-    addWallet: function () {
-      this.addWallet(this.wallet)
+
+  filters: {
+    someTotal: function (wallet) {
+      return (wallet.balance + Revenue.query().where('wallet_id', (value) => value === wallet.id).sum('amount') + Expense.query().where('wallet_id', (value) => value === wallet.id).sum('amount')).toFixed(2)
     }
   }
 }
