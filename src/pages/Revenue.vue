@@ -15,7 +15,7 @@
           @click="$router.back()"
         />
         <q-toolbar-title>
-          New Revenue
+          Nova Receita
         </q-toolbar-title>
         <q-btn label="Salvar" flat @click="save()" />
       </q-toolbar>
@@ -43,12 +43,12 @@
           </q-item-section>
         </q-item>
 
-              <q-item>
+        <q-item>
           <q-item-section avatar>
             <q-icon name="account_balance" />
           </q-item-section>
           <q-item-section>
-            <q-select borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" />
+            <q-select borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" popup-content-class="text-h6 text-weight-bolder" input-class="text-weight-bolder text-h6" />
           </q-item-section>
         </q-item>
 
@@ -58,7 +58,7 @@
               <q-popup-proxy transition-show="scale" transition-hide="scale">
                 <q-date no-unset today-btn v-model="revenue.date">
                   <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" flat />
+                    <q-btn v-close-popup label="Fechar" flat />
                   </div>
                 </q-date>
               </q-popup-proxy>

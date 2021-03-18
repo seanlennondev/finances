@@ -9,50 +9,41 @@
               Saldo de contas
             </div>
             <div :class="balance < 0 ? 'text-red-4' : 'text-blue-4'">
-              R$ {{total}}
+              R$ {{total | fixedAmount}}
             </div>
           </q-card-actions>
             </q-item-section>
         </q-item>
       </q-card>
 
-      <q-card class="q-pl-md q-py-md">
-        <div class="q-gutter-y-sm">
-          <div class="text-weight-bolder text-subtitle1 q-pb-sm q-pr-md row items-center justify-between">
+      <q-card>
+        <q-card-section class="text-weight-bolder text-subtitle1 q-pb-md row items-center justify-between">
             <div>
               Resumo diário
             </div>
               <div>
               {{now | calendarFormat}}
             </div>
-          </div>
+        </q-card-section>
+        <q-list class="q-gutter-y-md q-pb-md">
+          <q-item clickable class="rounded-borders text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-expenses" style="border-left: solid tomato 1px;">
+            <q-item-section>
+              Despesas
+            </q-item-section>
+            <q-item-section side class="text-red-4">
+              R$ {{expense}}
+            </q-item-section>
+          </q-item>
 
-        <q-item dense clickable class="q-px-sm rounded-borders" to="/today-expenses">
-          <q-item-section>
-            <q-card-actions align="between" class="text-weight-bolder text-subtitle1">
-              <div>
-                Despesas
-              </div>
-              <div :class="expense < 0 ? 'text-red-4' : 'text-green-4'">
-                  R$ {{expense}}
-              </div>
-            </q-card-actions>
-          </q-item-section>
-        </q-item>
-
-        <q-item dense clickable class="q-px-sm rounded-borders" to="/today-revenues">
-          <q-item-section>
-            <q-card-actions align="between" class="text-weight-bolder text-subtitle1">
-              <div>
-                Receitas
-              </div>
-              <div :class="balance < 0 ? 'text-red-4' : 'text-green-4'">
-                  R$ {{revenue}}
-              </div>
-            </q-card-actions>
-          </q-item-section>
-        </q-item>
-        </div>
+          <q-item clickable class="rounded-borders text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-revenues" style="border-left: solid green 1px;">
+            <q-item-section>
+              Receita
+            </q-item-section>
+            <q-item-section side class="text-green-4">
+              R$ {{revenue}}
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-card>
     </div>
   </q-page>
@@ -75,21 +66,17 @@ export default {
 
   computed: {
     total: function () {
-      const balance = Wallet.query().withAll().sum('balance')
-      const revenue = Revenue.query().sum('amount')
-      const expense = Expense.query().sum('amount')
-      const total = balance + revenue + expense
-      return total.toFixed(2)
+      return Wallet.query().sum('balance')
     },
 
     balance: function () {
       return Wallet.query().sum('balance').toFixed(2)
     },
     expense: function () {
-      return Expense.query().sum('amount').toFixed(2)
+      return Expense.query().where('date', (value) => date.formatDate(Date.now(), 'YYYY/MM/DD') === value).sum('amount').toFixed(2)
     },
     revenue: function () {
-      return Revenue.query().sum('amount').toFixed(2)
+      return Revenue.query().where('date', (value) => date.formatDate(Date.now(), 'YYYY/MM/DD') === value).sum('amount').toFixed(2)
     },
     revenues: function () {
       return Revenue.all()
@@ -99,6 +86,23 @@ export default {
   filters: {
     calendarFormat (value) {
       return date.formatDate(value, 'MMM, D')
+    },
+    fixedAmount (value) {
+      return value.toFixed(2)
+    }
+  },
+
+  created () {
+    if (!Wallet.exists()) {
+      Wallet.new()
+      Wallet.insert({
+        data: {
+          name: 'PagBank',
+          balance: 2000.00,
+          value: 'PagBank',
+          label: 'PagBank'
+        }
+      })
     }
   }
 }

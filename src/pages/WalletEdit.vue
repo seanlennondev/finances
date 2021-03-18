@@ -26,14 +26,14 @@
             R$
           </div>
           <div class="col-10">
-            <q-input type="number" placeholder="0,00" borderless
+            <q-input borderless
               input-class="text-h3 text-weight-bolder text-blue-4"
-              v-model="wallet.balance" mask="#,##" />
+              v-model="wallet.balance" mask="#.##" fill-mask="0" reverse-fill-mask />
           </div>
         </div>
 
-        <q-input v-model="wallet.name" color="blue-4" label="Name" />
-        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" label="" color="blue-4" class="col-10" />
+        <q-input v-model="wallet.name" color="blue-4" placeholder="Nome" input-class="text-h6 text-weight-bolder" />
+        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" color="blue-4" class="col-10 text-h6 text-weight-bolder" input-class="text-h6 text-weight-bolder" popup-content-class="text-h6 text-weight-bolder" />
       </q-page>
     </q-page-container>
   </q-layout>
@@ -70,6 +70,12 @@ export default {
     }
   },
 
+  filters: {
+    fixedAmount (value) {
+      return value.toFixed(2)
+    }
+  },
+
   methods: {
     save: function (wallet) {
       if (this.wallet.name === '') {
@@ -84,6 +90,8 @@ export default {
           this.$q.dialog().hide()
         })
       } else {
+        this.wallet.value = this.wallet.name
+        this.wallet.label = this.wallet.name
         wallet.$save()
         this.$router.back()
       }
@@ -125,7 +133,9 @@ export default {
   },
 
   created () {
-    this.wallet = Wallet.find(this.id)
+    const wallet = Wallet.find(this.id)
+    wallet.balance = wallet.balance.toFixed(2)
+    this.wallet = wallet
   }
 }
 </script>

@@ -1,7 +1,8 @@
 import { Model } from '@vuex-orm/core'
 import Revenue from './Revenue'
 import Expense from './Expense'
-import { uid } from 'Quasar'
+
+import { uid } from 'quasar'
 
 export default class Wallet extends Model {
   static entity = 'wallets'
@@ -9,11 +10,11 @@ export default class Wallet extends Model {
   static fields () {
     return {
       id: this.uid(() => uid()),
-      balance: this.number(1000.57),
-      name: this.string('My Wallet'),
-      value: this.string('My Wallet'),
-      label: this.string('My Wallet'),
-      category: this.string('CC'),
+      balance: this.number(1000.00),
+      name: this.string('Itau'),
+      value: this.string('Itau'),
+      label: this.string('Itau'),
+      category: this.string('CP'),
       revenues: this.hasMany(Revenue, 'wallet_id'),
       expenses: this.hasMany(Expense, 'wallet_id')
     }

@@ -8,7 +8,7 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          @click="openMenu()"
         />
 
         <q-toolbar-title>
@@ -37,7 +37,7 @@
         </div>
       </q-toolbar>
 
-      <q-toolbar class="bg-dark q-px-xl q-py-sm" v-if="$route.path == '/transactions'">
+      <!-- <q-toolbar class="bg-dark q-px-xl q-py-sm" v-if="$route.path == '/transactions'">
         <div>
           <q-btn flat round icon="arrow_back_ios" />
         </div>
@@ -47,7 +47,7 @@
         <div>
           <q-btn flat round icon="arrow_forward_ios" />
         </div>
-      </q-toolbar>
+      </q-toolbar> -->
     </q-header>
 
     <q-drawer
@@ -101,6 +101,7 @@
         direction="up"
         color="blue-4"
       >
+        <q-fab-action @click="$router.push('/new/transaction')" color="deep-orange" label="Transação" />
         <q-fab-action @click="$router.push('/new/wallet')" color="orange" label="Carteira" />
         <q-fab-action @click="$router.push('/new/expense')" color="red" label="Despesa" />
         <q-fab-action @click="$router.push('/new/revenue')" color="green" label="Receita" />
@@ -147,6 +148,7 @@
 <script>
 import Revenue from '../store/entities/Revenue'
 import Expense from '../store/entities/Expense'
+// import Open from 'src/store/entities/Open'
 
 const reports = [
   {
@@ -244,6 +246,17 @@ export default {
 
     expense () {
       return Expense.query().sum('amount')
+    }
+  },
+  methods: {
+    openMenu: function () {
+      this.leftDrawerOpen = !this.leftDrawerOpen
+      /* const open = Open.first()
+      open.update({
+        data: {
+          menu: !this.leftDrawerOpen
+        }
+      }) */
     }
   }
 }

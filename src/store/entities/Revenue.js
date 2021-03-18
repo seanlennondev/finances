@@ -10,7 +10,7 @@ export default class Revenue extends Model {
       id: this.uid(() => uid()),
       wallet_id: this.uid(),
       description: this.string(''),
-      date: this.attr(() => date.formatDate(Date.now(), 'YYYY/MM/DD')),
+      date: this.attr(() => date.formatDate(Date.now(), 'YYYY/MM/DD HH:mm')),
       amount: this.number(0.00)
     }
   }

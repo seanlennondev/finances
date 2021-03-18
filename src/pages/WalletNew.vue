@@ -8,9 +8,9 @@
           <q-btn round dense icon="arrow_back" flat @click="$router.back()" />
         </div>
         <q-toolbar-title>
-          New Wallet
+          Nova Carteira
         </q-toolbar-title>
-        <q-btn flat label="salvar" @click="save()" />
+        <q-btn flat label="salvar" @click="save(wallet)" />
       </q-toolbar>
     </q-header>
 
@@ -30,13 +30,14 @@
           </div>
         </div>
 
-        <q-input v-model="wallet.name" color="blue-4" label="Name" />
-        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" label="" color="blue-4" class="col-10" />
+        <q-input v-model="wallet.name" color="blue-4" placeholder="Nome" input-class="text-h6 text-weight-bolder" />
+        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" color="blue-4" class="col-10 text-h6 text-weight-bolder" input-class="text-h6 text-weight-bolder" popup-content-class="text-h6 text-weight-bolder" />
       </q-page>
     </q-page-container>
 
     <q-footer class="q-pa-md bg-dark text-weight-bold">
-      An account is anywhere you keep money, whether in your wallet, bank or piggy bank.
+      <!-- An account is anywhere you keep money, whether in your wallet, bank or piggy bank. -->
+      Uma conta é qualquer lugar aonde você guarde dinheiro, banco ou cofrinho.
     </q-footer>
   </q-layout>
   </transition>
@@ -49,7 +50,7 @@ export default {
   data: () => {
     return {
       wallet: new Wallet({
-        name: 'My Wallet',
+        name: '',
         category: 'Cash',
         balance: 0.00
       }),
@@ -71,10 +72,10 @@ export default {
   },
 
   methods: {
-    save: function () {
-      if (this.wallet.name === '') {
+    save: function (wallet) {
+      if (wallet.name === '') {
         this.$q.dialog({
-          title: 'Please enter a name for the account',
+          title: 'Por favor entre com um nome para a carteira',
           ok: {
             label: 'Fechar',
             color: 'blue-4',
@@ -84,9 +85,15 @@ export default {
           this.$q.dialog().hide()
         })
       } else {
-        this.wallet.value = this.wallet.name
-        this.wallet.label = this.wallet.name
-        Wallet.insert({ data: this.wallet })
+        Wallet.insert({
+          data: {
+            name: wallet.name,
+            balance: parseFloat(wallet.balance),
+            category: wallet.category,
+            value: wallet.name,
+            label: wallet.name
+          }
+        })
         this.$router.back()
       }
     }

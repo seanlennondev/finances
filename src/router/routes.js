@@ -13,10 +13,6 @@ const routes = [
         component: () => import('pages/Wallets.vue')
       },
       {
-        path: '/transactions',
-        component: () => import('pages/Transactions.vue')
-      },
-      {
         path: '/graphics',
         component: () => import('pages/Graphics.vue')
       },
@@ -30,7 +26,14 @@ const routes = [
       }
     ]
   },
-
+  {
+    path: '/transactions',
+    component: () => import('pages/Transactions.vue')
+  },
+  {
+    path: '/new/transaction',
+    component: () => import('pages/TransactionNew.vue')
+  },
   {
     path: '/new/revenue',
     component: () => import('pages/Revenue.vue')
