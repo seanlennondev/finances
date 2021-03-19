@@ -5,7 +5,8 @@
 </template>
 
 <script>
+// import { formatDateMonthDay } from 'src/boot/Date'
+
 export default {
-  // name: 'PageName',
 }
 </script>

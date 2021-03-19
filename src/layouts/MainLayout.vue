@@ -226,19 +226,19 @@ export default {
 
     title () {
       if (this.$route.path === '/') {
-        return 'Finance'
+        return 'Finanças'
       } else if (this.$route.path === '/wallets') {
-        return 'Wallets'
+        return 'Carteiras'
       } else if (this.$route.path === '/transactions') {
-        return 'Transactions'
+        return 'Transações'
       } else if (this.$route.path === '/graphics') {
-        return 'Graphics'
+        return 'Gráficos'
       } else if (this.$route.path === '/credit-cards') {
-        return 'Credit Cards'
+        return 'Catão de crédito'
       } else if (this.$route.path === '/budget') {
-        return 'Budget'
+        return 'Orçamento'
       } else {
-        return 'Settings'
+        return 'Configurações'
       }
     },
 

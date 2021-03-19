@@ -2,7 +2,7 @@
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card>
       <q-date no-unset today-btn color="primary" v-model="calendar" />
-      <q-card-actions align="right">
+      <q-card-actions align="between">
         <q-btn flat label="Cancelar" @click="onCancelClick()" />
         <q-btn flat label="ok" @click="onOKClick(calendar)" />
       </q-card-actions>

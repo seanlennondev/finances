@@ -26,7 +26,7 @@
             </div>
         </q-card-section>
         <q-list class="q-gutter-y-md q-pb-md">
-          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-expenses" style="border-left: solid tomato 4px;">
+          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md expense-left-border" to="/today-expenses" >
             <q-item-section>
               Despesas
             </q-item-section>
@@ -35,12 +35,21 @@
             </q-item-section>
           </q-item>
 
-          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-revenues" style="border-left: solid green 4px;">
+          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md revenue-left-border" to="/today-revenues" >
             <q-item-section>
               Receita
             </q-item-section>
             <q-item-section side class="text-green-4">
               R$ {{revenue}}
+            </q-item-section>
+          </q-item>
+
+          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md transfer-left-border" to="/transactions" >
+            <q-item-section>
+              Transações
+            </q-item-section>
+            <q-item-section side class="text-deep-purple-4">
+              R$ {{transfers}}
             </q-item-section>
           </q-item>
         </q-list>
@@ -80,6 +89,17 @@ export default {
     },
     revenues: function () {
       return Revenue.all()
+    },
+    transfers: function () {
+      return this.$store.$db().model('transfers')
+        .query()
+        // .where('date', (value) => {
+        // const today = date.formatDate(value, 'YYYY/MM/DD')
+        // const dateToday = date.formatDate(Date.now(), 'YYYY/MM/DD')
+        // date.isSameDate(value, Date.now())
+        // })
+        .sum('amount')
+        .toFixed(2)
     }
   },
 
@@ -92,10 +112,10 @@ export default {
     }
   },
 
-  created () {
+  async created () {
     if (!Wallet.exists()) {
       Wallet.new()
-      Wallet.insert({
+      const wallet = await Wallet.insert({
         data: {
           name: 'PagBank',
           balance: 2000.00,
@@ -103,7 +123,33 @@ export default {
           label: 'PagBank'
         }
       })
+      const revenue = await Revenue.insert({
+        data: {
+          description: 'Salário',
+          wallet_id: wallet.id,
+          amount: 100.00
+        }
+      })
+
+      wallet.update({
+        where: wallet.id,
+        data: {
+          balance: wallet.balance += revenue.amount
+        }
+      })
     }
   }
 }
 </script>
+
+<style lang="scss">
+    .revenue-left-border {
+        border-left: solid 4px $green-4
+    }
+    .expense-left-border {
+        border-left: solid 4px $red-4
+    }
+    .transfer-left-border {
+        border-left: solid 4px $deep-purple-4
+    }
+</style>
