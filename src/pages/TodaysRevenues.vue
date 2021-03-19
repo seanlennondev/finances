@@ -2,21 +2,21 @@
   <transition appear enter-active-class="animated slideInUp" leave-active-class="animated slideInDown"
   >
     <q-layout view="lHh lpr lFf">
-      <q-header>
-        <q-toolbar class="bg-dark">
+      <q-header class="bg-dark">
+        <q-toolbar>
           <q-btn round dense icon="arrow_back" flat @click="$router.back()" />
           <q-toolbar-title>
-            Today's Revenues
+            Receitas de hoje
           </q-toolbar-title>
         </q-toolbar>
 
-        <q-toolbar class="bg-dark">
+        <q-toolbar>
           <q-toolbar-title>
             <q-item class="q-px-xl q-pt-md">
               <q-item-section avatar>
                 <q-btn flat round icon ="arrow_back_ios" @click="previous()" />
               </q-item-section>
-              <q-item-section class="text-center" @click.prevent="openCalendar()">
+              <q-item-section class="text-center text-weight-bolder text-h6" @click.prevent="openCalendar()">
                  {{calendar | calendarFormat}}
               </q-item-section>
               <q-item-section avatar>
@@ -35,7 +35,7 @@
                 <q-item-section>
                   {{revenue.description}}
                 </q-item-section>
-                <q-item-section side :class="revenue.total < 0 ? 'text-red-4' : 'text-blue-4'">
+                <q-item-section avatar :class="revenue.total < 0 ? 'text-red-4' : 'text-green-4'">
                   {{revenue.total}}
                 </q-item-section>
               </q-item>
@@ -43,6 +43,16 @@
           </q-list>
         </q-page>
       </q-page-container>
+        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+          <q-fab
+            icon="add"
+            vertical-actions-align="right"
+            direction="up"
+            color="green-4"
+            @click="$router.push('/new/revenue')"
+          >
+          </q-fab>
+        </q-page-sticky>
     </q-layout>
   </transition>
 </template>

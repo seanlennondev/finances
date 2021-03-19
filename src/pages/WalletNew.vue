@@ -5,7 +5,7 @@
     <q-header>
       <q-toolbar class="bg-dark">
         <div>
-          <q-btn round dense icon="arrow_back" flat @click="$router.back()" />
+          <q-btn round dense icon="close" flat @click="$router.back()" />
         </div>
         <q-toolbar-title>
           Nova Carteira
@@ -31,7 +31,7 @@
         </div>
 
         <q-input v-model="wallet.name" color="blue-4" placeholder="Nome" input-class="text-h6 text-weight-bolder" />
-        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" color="blue-4" class="col-10 text-h6 text-weight-bolder" input-class="text-h6 text-weight-bolder" popup-content-class="text-h6 text-weight-bolder" />
+        <q-select v-model="wallet.category" :options="categories.map(x => x.name)" color="blue-4" class="text-h6 text-weight-bolder" input-content-class="text-h6 text-weight-bolder" popup-content-class="text-h6 text-weight-bolder" />
       </q-page>
     </q-page-container>
 
@@ -51,12 +51,12 @@ export default {
     return {
       wallet: new Wallet({
         name: '',
-        category: 'Cash',
+        category: 'Dinheiro',
         balance: 0.00
       }),
       categories: [
         {
-          name: 'Cash'
+          name: 'Dinheiro'
         },
         {
           name: 'CC'
@@ -65,7 +65,7 @@ export default {
           name: 'CP'
         },
         {
-          name: 'Others'
+          name: 'Outro'
         }
       ]
     }

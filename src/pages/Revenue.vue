@@ -5,13 +5,13 @@
     leave-active-class="animated slideInDown"
   >
     <q-layout>
-      <q-header>
-      <q-toolbar class="bg-dark">
+      <q-header class="bg-dark">
+      <q-toolbar>
         <q-btn
           flat
           round
           dense
-          icon="arrow_back"
+          icon="close"
           @click="$router.back()"
         />
         <q-toolbar-title>
@@ -23,40 +23,40 @@
       <q-page-container>
         <q-page>
           <q-form @submit="onSubmit()">
-            <q-input input-class="text-h3 text-blue-4 text-weight-bolder" class="q-pa-md" borderless v-model="revenue.amount" mask="#.##" fill-mask="0" reverse-fill-mask>
+            <q-input input-class="text-h3 text-green-4 text-weight-bolder" class="q-pa-md" borderless v-model="revenue.amount" mask="#.##" fill-mask="0" reverse-fill-mask>
               <template #prepend>
-                <div class="text-weight-bolder text-blue-4 text-h3">
+                <div class="text-weight-bolder text-green-4 text-h3">
                   R$
             </div>
           </template>
       </q-input>
 
-            <q-separator />
+      <q-separator />
 
-            <q-list separator padding>
-              <q-item>
-          <q-item-section avatar>
-            <q-icon name="description" />
+      <q-list separator>
+        <q-item>
+          <q-item-section side>
+            <q-icon name="description" color="green-4" />
           </q-item-section>
           <q-item-section>
-            <q-input input-class="text-h6" placeholder="Description" borderless color="blue-4" v-model="revenue.description" />
+            <q-input input-class="text-h6" placeholder="Description" borderless color="green-4" v-model="revenue.description" />
           </q-item-section>
         </q-item>
 
         <q-item>
-          <q-item-section avatar>
-            <q-icon name="account_balance" />
+          <q-item-section side>
+            <q-icon name="account_balance" color="green-4" />
           </q-item-section>
           <q-item-section>
-            <q-select borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" popup-content-class="text-h6 text-weight-bolder" input-class="text-weight-bolder text-h6" />
+            <q-select color="green-4" borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" popup-content-class="text-h6 text-weight-bolder" input-class="text-weight-bolder text-h6" />
           </q-item-section>
         </q-item>
 
         <q-item>
-          <q-item-section avatar>
-            <q-icon name="event">
+          <q-item-section side>
+            <q-icon name="event" color="green-4">
               <q-popup-proxy transition-show="scale" transition-hide="scale">
-                <q-date no-unset today-btn v-model="revenue.date">
+                <q-date color="green-4" no-unset today-btn v-model="revenue.date">
                   <div class="row items-center justify-end">
                     <q-btn v-close-popup label="Fechar" flat />
                   </div>
@@ -65,7 +65,7 @@
             </q-icon>
           </q-item-section>
           <q-item-section>
-            <q-input item-aligned color="blue-4" class="q-pl-none" input-class="text-h6 text-weight-bold" borderless v-model="revenue.date" mask="####/##/##" fill-mask="0" :rules="['date']">
+            <q-input item-aligned color="green-4" class="q-pl-none" input-class="text-h6 text-weight-bold" borderless v-model="revenue.date" mask="####/##/##" fill-mask="0" :rules="['date']">
             </q-input>
           </q-item-section>
         </q-item>

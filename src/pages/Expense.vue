@@ -5,13 +5,13 @@
     leave-active-class="animated slideInDown"
   >
     <q-layout>
-      <q-header>
-      <q-toolbar class="bg-dark">
+      <q-header class="bg-dark">
+      <q-toolbar>
         <q-btn
           flat
           round
           dense
-          icon="arrow_back"
+          icon="close"
           @click="$router.back()"
         />
         <q-toolbar-title>
@@ -33,10 +33,10 @@
 
         <q-separator />
 
-        <q-list separator padding>
+        <q-list separator>
           <q-item>
-            <q-item-section avatar>
-              <q-icon name="description" />
+            <q-item-section side>
+              <q-icon name="description" color="red-4" />
             </q-item-section>
             <q-item-section>
             <q-input input-class="text-h6" placeholder="Description" borderless color="blue-4" v-model="expense.description" />
@@ -44,19 +44,19 @@
           </q-item>
 
           <q-item>
-            <q-item-section avatar>
-              <q-icon name="account_balance" />
+            <q-item-section side>
+              <q-icon name="account_balance" color="red-4" />
             </q-item-section>
             <q-item-section>
-            <q-select borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" popup-content-class="text-h6 text-weight-bolder" input-class="text-weight-bolder text-h6" />
+            <q-select color="red-4" borderless v-model="wallet" :options="wallets" class="text-weight-bolder text-h6" popup-content-class="text-h6 text-weight-bolder" input-class="text-weight-bolder text-h6" />
             </q-item-section>
           </q-item>
 
         <q-item>
-          <q-item-section avatar>
-            <q-icon name="event">
+          <q-item-section side>
+            <q-icon name="event" color="red-4">
               <q-popup-proxy transition-show="scale" transition-hide="scale">
-                <q-date no-unset today-btn v-model="expense.date">
+                <q-date color="red-4" no-unset today-btn v-model="expense.date">
                   <div class="row items-center justify-end">
                     <q-btn v-close-popup label="Fechar" flat />
                   </div>

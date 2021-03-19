@@ -1,17 +1,17 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
-      <q-toolbar class="bg-dark">
+    <q-header class="bg-dark">
+      <q-toolbar>
         <q-btn
           flat
           dense
           round
           icon="menu"
           aria-label="Menu"
-          @click="openMenu()"
+          @click.prevent="openMenu()"
         />
 
-        <q-toolbar-title>
+        <q-toolbar-title class="text-weight-bolder">
           {{title}}
         </q-toolbar-title>
         <div v-if="$route.path == '/wallets'">
@@ -53,7 +53,6 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      content-class=""
     >
       <q-list>
         <q-item-label
@@ -99,10 +98,10 @@
         icon="add"
         vertical-actions-align="right"
         direction="up"
-        color="blue-4"
+        color="primary"
       >
-        <q-fab-action @click="$router.push('/new/transaction')" color="deep-orange" label="Transação" />
-        <q-fab-action @click="$router.push('/new/wallet')" color="orange" label="Carteira" />
+        <q-fab-action @click="$router.push('/new/transaction')" color="deep-purple" label="Transação" />
+        <q-fab-action @click="$router.push('/new/wallet')" color="blue" label="Carteira" />
         <q-fab-action @click="$router.push('/new/expense')" color="red" label="Despesa" />
         <q-fab-action @click="$router.push('/new/revenue')" color="green" label="Receita" />
       </q-fab>
@@ -146,6 +145,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import Revenue from '../store/entities/Revenue'
 import Expense from '../store/entities/Expense'
 // import Open from 'src/store/entities/Open'
@@ -222,6 +222,8 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getMenu']),
+
     title () {
       if (this.$route.path === '/') {
         return 'Finance'
@@ -249,7 +251,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions('addManu'),
+
     openMenu: function () {
+      // this.$store.state.menu = !this.$store.state.menu
+      // = !this.$store.state.menu
+      // this.addManu(!this.getMenu)
       this.leftDrawerOpen = !this.leftDrawerOpen
       /* const open = Open.first()
       open.update({

@@ -1,26 +1,30 @@
 <template>
     <transition appear
-        enter-active-class="animate slideInUp"
-        leave-active-class="animate slideInDown"
+        enter-active-class="animated slideInUp"
+        leave-active-class="animated slideInDown"
     >
         <q-layout view="lHh lpr lFf">
             <q-header class="bg-dark">
                 <q-toolbar>
-                    <q-btn dense icon="arrow_back" round flat @click="$router.back()" />
+                    <q-btn dense icon="arrow_back" round flat @click.prevent="$router.back()" />
                     <q-toolbar-title class="text-weight-bolder">
                         Transações
                     </q-toolbar-title>
                 </q-toolbar>
-                <q-toolbar class="q-px-xl q-py-sm">
-                    <div>
-                        <q-btn icon="arrow_back_ios" flat round @click.prevent="previous" />
-                    </div>
-                    <q-toolbar-title class="text-weight-bolder text-h6 text-center" @click.prevent="openCalendar()">
-                        {{calendar | formatCalendar}}
+                <q-toolbar>
+                    <q-toolbar-title>
+                        <q-item class="q-px-xl q-pt-md">
+                            <q-item-section avatar>
+                                <q-btn flat round icon ="arrow_back_ios" @click="previous()" />
+                            </q-item-section>
+                            <q-item-section class="text-center text-weight-bolder text-h6" @click.prevent="openCalendar()">
+                               {{calendar | calendarDay}}
+                            </q-item-section>
+                            <q-item-section avatar>
+                                <q-btn flat round icon="arrow_forward_ios" @click="next()" />
+                            </q-item-section>
+                        </q-item>
                     </q-toolbar-title>
-                    <div>
-                        <q-btn icon="arrow_forward_ios" flat round @click.prevent="next" />
-                    </div>
                 </q-toolbar>
             </q-header>
 
@@ -29,10 +33,10 @@
                     <div
                         v-for="item in transfers"
                         :key="item.id"
-                         style="height:140px"
+                         style="height:145px"
                     >
                         <div class="row items-start justify-start">
-                            <div style="height:140px" class="col-1 q-gutter-y-xs column items-center justify-between">
+                            <div style="height:145px" class="col-1 q-gutter-y-xs column items-center justify-between">
                                 <div class="">
                                     <q-btn unelevated :size="!item.other ? '10px' : '7px'" round color="blue-4" :icon="item | icon" />
                                 </div>
@@ -41,7 +45,7 @@
 
                             <q-list dense class="col q-px-none text-subtitle1 text-weight-bolder">
                                 <q-item v-if="!item.other">
-                                    <div class="text-subtitle2 text-uppercase text-weight-bolder text-grey">
+                                    <div class="text-subtitle2 text-weight-bolder text-blue-4">
                                         {{item.date | calendarDay}}
                                     </div>
                                 </q-item>
@@ -53,13 +57,14 @@
                                         - R$ {{item.amount.toFixed(2)}}
                                     </q-item-section>
                                 </q-item>
-                                <q-item class="text-h">
+                                <q-item>
                                     <q-item-section>
                                         {{item.wallet_sender}}
                                     </q-item-section>
                                     <q-item-section avatar class="text-green-4">
                                         + R$ {{item.amount.toFixed(2)}}
                                     </q-item-section>
+                                    <q-separator spaced />
                                 </q-item>
                             </q-list>
                         </div>
@@ -73,6 +78,19 @@
                 >
                 </q-fab>
             </q-page-sticky>
+            <q-footer class="bg-dark">
+                <q-toolbar class="text-white -weight-bolder q-py-sm">
+                    <div class="text-weight-bolder">
+                        <q-icon name="trending_up" color="green" /> R$ {{revenues}}
+                    </div>
+                    <q-toolbar-title class="text-center">
+                        <q-icon name="payment" color="yellow" /> R$ 0
+                    </q-toolbar-title>
+                    <div class="text-weight-bolder">
+                        <q-icon name="trending_down" color="red" /> R$ {{expenses}}
+                    </div>
+                </q-toolbar>
+            </q-footer>
         </q-layout>
     </transition>
 </template>
@@ -81,12 +99,24 @@
 import { date } from 'quasar'
 
 import Transfer from 'src/store/entities/Transfer'
+import Revenue from 'src/store/entities/Revenue'
+import Expense from 'src/store/entities/Expense'
 
 export default {
   data: () => {
     return {
       calendar: date.formatDate(Date.now(), 'YYYY/MM/DD HH:mm:ss'),
       transfers: []
+    }
+  },
+
+  computed: {
+    revenues: function () {
+      return Revenue.query().sum('amount').toFixed(2) || 0
+    },
+
+    expenses: function () {
+      return Expense.query().sum('amount').toFixed(2) || 0
     }
   },
 
@@ -149,6 +179,10 @@ export default {
         }
       })
       return transfers
+    },
+
+    openMenu: function () {
+      this.$store.state.menu = !this.$store.state.memu
     }
   },
 

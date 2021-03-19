@@ -1,7 +1,7 @@
 <template>
-  <q-page padding>
-    Credit Cards
-  </q-page>
+    <q-page padding class="flex flex-center">
+        <h4>Está página será implementada em breve</h4>
+    </q-page>
 </template>
 
 <script>

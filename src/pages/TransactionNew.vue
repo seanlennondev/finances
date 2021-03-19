@@ -6,7 +6,7 @@
     <q-layout>
         <q-header class="bg-dark">
             <q-toolbar>
-                <q-btn dense flat icon="arrow_back" @click="$router.back()" />
+                <q-btn dense flat icon="close" @click="$router.back()" />
                 <q-toolbar-title>
                     Nova Transação
                 </q-toolbar-title>
@@ -17,7 +17,7 @@
             <q-page>
                 <q-form>
                     <q-input
-                        input-class="text-h3 text-blue-4 text-weight-bolder"
+                        input-class="text-h3 text-deep-purple-4 text-weight-bolder"
                         class="q-pa-md"
                         borderless
                         v-model="transfer.amount"
@@ -25,30 +25,33 @@
                         reverse-fill-mask
                     >
                         <template #prepend>
-                            <div class="text-weight-bolder text-blue-4 text-h3">
+                            <div class="text-weight-bolder text-deep-purple-4 text-h3">
                                 R$
                             </div>
                         </template>
                     </q-input>
                     <q-separator />
-                    <div class="q-px-m">
-                        <q-select popup-content-class="text-weight-bolder text-h6" color="blue-4" class="text-weight-bolder text-h6 q-px-md" borderless v-model="transfer.from" :options="wallets">
+                    <div>
+                        <q-select popup-content-class="text-weight-bolder text-h6" color="blue-4" class="text-weight-bolder text-h6 q-px-md q-pt-sm" borderless v-model="transfer.from" :options="wallets">
                             <template #prepend>
-                                <q-icon color="blue-4" name="account_balance" flat dense  />
+                                <q-icon color="red-4" name="account_balance" flat dense  />
                             </template>
                         </q-select>
-                        <q-icon class="q-px-md" size="sm" name="arrow_downward" />
-                        <q-select popup-content-class="text-weight-bolder text-h6" color="blue-4" class="q-px-md text-h6 text-weight-bolder" borderless v-model="transfer.to" :options="wallets">
+                        <div class="row items-center">
+                            <q-icon class="q-px-md col-auto" size="sm" name="arrow_downward" />
+                            <q-separator class="col" space />
+                        </div>
+                        <q-select popup-content-class="text-weight-bolder text-h6" color="blue-4" class="q-px-md q-pb-sm text-h6 text-weight-bolder" borderless v-model="transfer.to" :options="wallets">
                             <template #prepend>
-                                <q-icon color="blue-4" name="account_balance" flat dense />
+                                <q-icon color="green-4" name="account_balance" flat dense />
                             </template>
                         </q-select>
                         <q-separator />
                         <q-item dense>
                           <q-item-section side>
-                            <q-icon name="event" color="blue-4">
+                            <q-icon name="event" color="deep-purple-4">
                               <q-popup-proxy transition-show="scale" transition-hide="scale">
-                                <q-date no-unset today-btn v-model="transfer.date">
+                                <q-date color="deep-purple-4" no-unset today-btn v-model="transfer.date">
                                   <div class="row items-center justify-end">
                                     <q-btn v-close-popup label="Fechar" flat />
                                   </div>
@@ -57,7 +60,7 @@
                             </q-icon>
                           </q-item-section>
                           <q-item-section>
-                            <q-input item-aligned color="blue-4" class="q-pl-none" input-class="text-h6 text-weight-bold" borderless v-model="transfer.date" mask="####/##/##" fill-mask="0" :rules="['date']">
+                            <q-input item-aligned color="deep-purple-4" class="q-pl-none" input-class="text-h6 text-weight-bold" borderless v-model="transfer.date" mask="####/##/##" fill-mask="0" :rules="['date']">
                             </q-input>
                           </q-item-section>
                         </q-item>

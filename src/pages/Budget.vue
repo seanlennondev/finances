@@ -1,7 +1,7 @@
 <template>
-  <q-page padding>
-    Budget
-  </q-page>
+    <q-page padding class="flex flex-center">
+        <h4>Está página será implementada em breve</h4>
+    </q-page>
 </template>
 
 <script>

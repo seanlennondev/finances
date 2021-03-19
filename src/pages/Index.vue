@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="q-gutter-y-md">
-      <q-card style="border-top: 8px solid purple; ">
+      <q-card style="border-top: 6px solid purple; ">
         <q-item clickable class="q-px-sm" to="/wallets">
             <q-item-section>
               <q-card-actions align="between" class="text-weight-bolder text-subtitle1">
@@ -26,7 +26,7 @@
             </div>
         </q-card-section>
         <q-list class="q-gutter-y-md q-pb-md">
-          <q-item clickable class="rounded-borders text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-expenses" style="border-left: solid tomato 1px;">
+          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-expenses" style="border-left: solid tomato 4px;">
             <q-item-section>
               Despesas
             </q-item-section>
@@ -35,7 +35,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable class="rounded-borders text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-revenues" style="border-left: solid green 1px;">
+          <q-item dense clickable class="no-border-radius text-weight-bolder text-subtitle1 q-mr-none q-ml-md" to="/today-revenues" style="border-left: solid green 4px;">
             <q-item-section>
               Receita
             </q-item-section>

@@ -25,6 +25,24 @@ export default function (/* { ssrContext } */) {
     modules: {
       Global
     },
+    state: {
+      menu: false
+    },
+    getters: {
+      getMenu: function (state) {
+        return state.menu
+      }
+    },
+    actions: {
+      addMenu: function ({ commit }) {
+        commit('setMenu')
+      }
+    },
+    mutations: {
+      setMenu: function (state) {
+        state.menu = !state.menu
+      }
+    },
     plugins: [VuexORM.install(database)],
     // enable strict mode (adds overhead!)
     // for dev mode only

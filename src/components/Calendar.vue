@@ -1,10 +1,10 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card>
-      <q-date :minimal="$router.path == '/transactions' ? true : false" default-view="Months" mask="YYYY/MM/DD HH:mm" no-unset today-btn color="blue-4" v-model="calendar" />
+      <q-date no-unset today-btn color="primary" v-model="calendar" />
       <q-card-actions align="right">
         <q-btn flat label="Cancelar" @click="onCancelClick()" />
-        <q-btn flat label="Ok" @click="onOKClick(calendar)" />
+        <q-btn flat label="ok" @click="onOKClick(calendar)" />
       </q-card-actions>
     </q-card>
   </q-dialog>
