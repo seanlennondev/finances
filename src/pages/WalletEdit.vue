@@ -55,7 +55,7 @@ export default {
       wallet: {},
       categories: [
         {
-          name: 'Cash'
+          name: 'Dinheiro'
         },
         {
           name: 'CC'
@@ -64,7 +64,7 @@ export default {
           name: 'CP'
         },
         {
-          name: 'Others'
+          name: 'Outro'
         }
       ]
     }
