@@ -100,10 +100,10 @@
         direction="up"
         color="primary"
       >
-        <q-fab-action @click="$router.push('/new/transaction')" color="deep-purple" label="Transação" />
         <q-fab-action @click="$router.push('/new/wallet')" color="blue" label="Carteira" />
         <q-fab-action @click="$router.push('/new/expense')" color="red" label="Despesa" />
         <q-fab-action @click="$router.push('/new/revenue')" color="green" label="Receita" />
+        <q-fab-action @click="$router.push('/new/transaction')" color="deep-purple" label="Transação" />
       </q-fab>
 
       <q-fab
